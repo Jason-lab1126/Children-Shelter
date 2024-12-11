@@ -1,0 +1,192 @@
+<!--
+  Name: Jayson and Aldrich
+  Date: December 10th, 2024
+  Section: CSE 154 AB, CSE 154 AC
+  File: index.html
+  Description: This is the main HTML file for the "Children Shelter Program" website.
+  Purpose: Acts as the central structure for the website, providing sections for
+  navigation, dynamic content rendering, user interaction (login, registration, booking, etc.),
+  and viewing order history and reviews. Includes toggles for light/dark mode,
+  list/grid view, and interactive elements like search, modals, and feedback forms.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Children Shelter Program</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src='index.js'></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet">
+  </head>
+
+  <body class="light-mode">
+    <header>
+      <div >
+        <div class="light-dark" id="light-dark">
+          ☾ Light/Night Mode
+        </div>
+        <img src="img/uw_logo.png" alt="UW Seattle Logo" class="uw-logo">
+        <h2 id="head">Children Shelter Program</h2>
+        <div class="toggle-mode">
+          <div id="toggle-mode"> List / Grid  </div>
+          <div class="user-icon" id="user-icon">
+            <img id='login' src="img/login.png" alt="UW Seattle Logo" class="user-img">
+            <div class="dropdown hidden">
+              <ul>
+                <li><a id="logout-btn">Log Out</a></li>
+                <li><a id="order-history" >History Orders</a></li>
+              </ul>
+            </div>
+          </div>
+          <div id="custom-alert" class="modal">
+            <div class="modal-content">
+              <p id="alert-message"></p>
+              <button id="confirm-button">Ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <article id='yipper-data'>
+        <!-- home view -->
+        <section id='search-bar'>
+          <div class="search-container">
+            <input type="text" id="name-search" placeholder="Search Name" >
+            <input type="text" id="age-search" placeholder="Max Age" >
+            <input type="text" id="price-search" placeholder="Max Price" >
+            <button id='search-btn'>Search</button>
+            <div class="checkbox-container">
+              <input type="checkbox" id="degree-check-box">
+              <label for="degree-check-box">College Degree or Higher</label>
+            </div>
+          </div>
+        </section>
+
+        <section id='home'>
+        </section>
+        <!-- user view -->
+        <section id='user' class='hidden'>
+        </section>
+          <!-- history orders -->
+        <div id="history-section" class="history-section hidden">
+          <h2>History order</h2>
+          <div id="order-list"></div>
+        </div>
+        <!-- new order view -->
+        <section id='order' class='hidden'>
+          <h2>Book a Service</h2>
+          <form id="booking-form">
+            <div class="form-group">
+              <label for="start-time">Start Time:</label>
+              <input id="start-time" type="datetime-local" name="startTime" required="required">
+            </div>
+            <div class="form-group">
+              <label for="end-time">End Time:</label>
+              <input id="end-time" type="datetime-local" name="endTime" required="required">
+            </div>
+            <div class="form-group">
+              <label for="address">Address:</label>
+              <textarea id="address" name="address" placeholder="Enter Address..."></textarea>
+            </div>
+
+            <div id="upload-form">
+              <label for="file-input">Chose File: </label>
+              <input type="file" id="file-input" name="file">
+              <button id="upload-form-btn">Upload</button>
+            </div>
+            <div id="file-id" class="hidden"></div>
+
+            <div id='order-div'>
+              <button id="order-btn" type="submit">Confirm</button>
+            </div>
+
+            <div id='submit-div' class="hidden">
+              <div id='confirm-num'></div>
+              <button id="unconfirm-btn" >Unconfirm</button>
+              <button id="submit-btn" type="submit" >Submit</button>
+            </div>
+          </form>
+        </section>
+
+        <div id="transaction-history" class="hidden"></div>
+        <!-- review -->
+        <div class="review-container">
+          <div id="review-section" class="hidden">
+            <div  class="hidden" id='order-id'></div>
+            <h3>Review</h3>
+            <div class="stars">
+              <span class="star" data-value="1">★</span>
+              <span class="star" data-value="2">★</span>
+              <span class="star" data-value="3">★</span>
+              <span class="star" data-value="4">★</span>
+              <span class="star" data-value="5">★</span>
+              </div>
+            <textarea id="review-comment" placeholder="input reviews..." rows="4"></textarea>
+            <button id="review-submit-btn">Submit</button>
+          </div>
+        </div>
+        <section id="service-details" class="hidden">
+          <h2>Service Name</h2>
+          <p>Description of the service...</p>
+          <h3>Leave Your Feedback</h3>
+          <form id="feedback-form">
+            <input type="number" min="1" max="5" step="1" placeholder="Rating (1-5)"
+            required="required">
+            <textarea placeholder="Leave a comment..."></textarea>
+            <button type="submit">Submit Feedback</button>
+            </form>
+          </section>
+        <div class="review-container">
+          <section id="login-section" class="hidden login-container">
+            <h2>Log in</h2>
+            <form>
+              <input name= "username" id= "username" type="text" placeholder="user name"
+              required="required">
+              <input name= "password" id= "password" type="password" placeholder="password"
+              required="required">
+              <!-- improvement -->
+              <div>
+                <label for="role">Select Role:</label>
+                <select id="role" name="role">
+                  <option value="Parent">Parent</option>
+                  <option value="Elder">Elder</option>
+                </select>
+              </div>
+              <div class="remember-me">
+                <input type="checkbox" id="remember-me">
+                <label for="remember-me">Remember Me</label>
+              </div>
+              <input id="login-button" type="submit" value="Log in">
+              <p>Don't have an account? <a id="show-register-btn"> Register</a></p>
+            </form>
+          </section>
+          <section id="register-section" class="hidden login-container">
+            <h2>Register</h2>
+            <form id="register-form">
+              <input type="text" placeholder="Username" name= "Username" id="user-name"
+              required="required">
+              <input type="password" placeholder="Password" name= "Password" id="pass-word"
+              required="required">
+              <input type="text" placeholder="Child Name" name= "childName" id="child-name"
+              required="required">
+              <input type="number" placeholder="age" name= "age" id="age" required>
+              <input type="text" placeholder="email" name= "email" id="email" required>
+              <input type="text" placeholder="address" name= "address" id="address-register"
+              required="required">
+              <input id= "register-btn" type="submit" value="Register">
+            </form>
+          </section>
+        </div>
+      </article>
+      <!-- error view -->
+      <h2 id='error' class='hidden'></h2>
+    </main>
+    <footer>
+      <p>Children Shelter Program &copy; 2024. Created by Aldrich and Jayson.</p>
+    </footer>
+  </body>
+</html>
